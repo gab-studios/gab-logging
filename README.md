@@ -1,7 +1,7 @@
 
-Master | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=master)](https://travis-ci.org/gab-studios/gab-logging) | []()
+Master | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=master)](https://travis-ci.org/gab-studios/gab-logging) | [![codecov](https://codecov.io/gh/gab-studios/gab-logging/branch/master/graph/badge.svg)](https://codecov.io/gh/gab-studios/gab-logging)
 ---: | :---: | :---:
-Integration | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=integration)](https://travis-ci.org/gab-studios/gab-logging) | []()
+Integration | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=integration)](https://travis-ci.org/gab-studios/gab-logging) | [![codecov](https://codecov.io/gh/gab-studios/gab-logging/branch/integration/graph/badge.svg)](https://codecov.io/gh/gab-studios/gab-logging)
 
 
 GAB-Logging
