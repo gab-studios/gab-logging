@@ -1,30 +1,48 @@
-gab-logging
-=======
-A GABSocial library to help with logging.
 
+Master | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=master)](https://travis-ci.org/gab-studios/gab-logging) | []()
+---: | :---: | :---:
+Integration | [![Build Status](https://travis-ci.org/gab-studios/gab-logging.svg?branch=integration)](https://travis-ci.org/gab-studios/gab-logging) | []()
+
+
+GAB-Logging
+=======
+
+The GAB Studios Logging Library for Java.  The purpose of this project is to analyze and examine how I would create a logging wrapper library for Java.  Comments are welcome.  Thank you.
+
+
+Required
+---------
+This project requires the following: 
+
+    * Java 8
+    * Maven
 
 Build
 ---------
-Use Maven to build - mvn package.
+Use Maven to build - `mvn package`.
 
 
 More Documentation
 ------------------
-Check our [wiki][].
+Check the project [wiki].
+
+
+Copyright
+-------
+[Copyright 2015 Gregory Brown]
 
 
 License
 -------
-Code is under the Apache v2.0 License [license].
+This codebase is licensed under the [Apache v2.0 License].
 
 
-Donations
+Feedback
 ---------
-We accept tips through [Gratipay][tip].
-
-[![Gratipay](https://img.shields.io/gratipay/sysdevone.svg?style=flat)](https://www.gittip.com/sysdevone/)
+Comments and feedback are greatly appreciated!!!
 
 
-[license]:https://github.com/sysdevone/gab-logging/tree/master/LICENSE
-[wiki]:https://github.com/sysdevone/gab-logging/wiki
-[tip]:https://www.gratipay.com/sysdevone/
+[Copyright 2015 Gregory Brown]: https://github.com/gab-studios/gab-logging/tree/master/COPYRIGHT.txt
+[Apache v2.0 License]: https://github.com/gab-studios/gab-logging/tree/master/LICENSE.txt
+[wiki]: https://github.com/gab-studios/gab-logging/wiki
+[examples]: https://github.com/gab-studios/gab-logging/wiki/Examples

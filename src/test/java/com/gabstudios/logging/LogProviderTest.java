@@ -17,10 +17,10 @@
  ***************************************************************************************** 
  */
 
-package org.gabsocial.gablogging;
+package com.gabstudios.logging;
 
-import org.gabsocial.gablogging.impl.JavaLogProviderImpl;
-import org.gabsocial.gablogging.impl.JavaLogServiceImpl;
+import com.gabstudios.logging.impl.JavaLogProviderImpl;
+import com.gabstudios.logging.impl.JavaLogServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
