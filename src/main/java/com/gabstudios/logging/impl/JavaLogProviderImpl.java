@@ -17,10 +17,10 @@
  *****************************************************************************************
  */
 
-package org.gabsocial.gablogging.impl;
+package com.gabstudios.logging.impl;
 
-import org.gabsocial.gablogging.LogProvider;
-import org.gabsocial.gablogging.LogService;
+import com.gabstudios.logging.LogProvider;
+import com.gabstudios.logging.LogService;
 
 
 /**
@@ -48,7 +48,8 @@ public class JavaLogProviderImpl extends LogProvider
      * 
      * @return A <code>LogService</code> instance.
      */
-    public LogService getService()
+    @Override
+	public LogService getService()
     {
         return (this._logService);
         

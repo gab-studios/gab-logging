@@ -17,7 +17,7 @@
  ***************************************************************************************** 
  */
 
-package org.gabsocial.gablogging;
+package com.gabstudios.logging;
 
 /**
  * 

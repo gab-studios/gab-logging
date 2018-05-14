@@ -17,7 +17,7 @@
  ***************************************************************************************** 
  */
 
-package org.gabsocial.gablogging;
+package com.gabstudios.logging;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -49,12 +49,12 @@ public class LogServiceTest
     }
     
     @Test
-    public void logDetail()
+    public void logDebug()
     {
         
         try
         {
-            this._logService.logDetail(LogProviderTest.class, "logDetail",
+            this._logService.logDebug(LogProviderTest.class, "logDetail",
                     "testing logDetail");
             
             Assert.assertTrue(true);
@@ -148,6 +148,43 @@ public class LogServiceTest
             this._logService.logFailure(LogProviderTest.class, "logFailure2",
                     "testing logFailure2 with Throwable", new Exception(
                             "logFailure2 Exception"));
+            
+            Assert.assertTrue(true);
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
+        }
+        
+    }
+    
+    @Test
+    public void logSecurity()
+    {
+        
+        try
+        {
+            this._logService.logSecurity(LogProviderTest.class, "logSecurity",
+                    "testing logSecurity");
+            
+            Assert.assertTrue(true);
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
+        }
+        
+    }
+    
+    @Test
+    public void logSecurity2()
+    {
+        
+        try
+        {
+            this._logService.logSecurity(LogProviderTest.class, "logSecurity2",
+                    "testing logSecurity with Throwable", new Exception(
+                            "logSecurity2 Exception"));
             
             Assert.assertTrue(true);
         }

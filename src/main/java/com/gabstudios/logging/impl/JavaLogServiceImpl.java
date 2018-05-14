@@ -17,18 +17,19 @@
  *****************************************************************************************
  */
 
-package org.gabsocial.gablogging.impl;
+package com.gabstudios.logging.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.gabsocial.gablogging.LogService;
-import org.gabsocial.gabvalidate.Validate;
+import com.gabstudios.logging.LogService;
+import com.gabstudios.validate.Validate;
 
 
 /**
  * A service to handle logging. This uses the java logging.
  *
+
  * @author Gregory Brown (sysdevone)
  */
 public class JavaLogServiceImpl implements LogService
@@ -84,7 +85,7 @@ public class JavaLogServiceImpl implements LogService
     }
 
     /**
-     * Call when you want to log detailed information for debugging or tracing.
+     * Call when you want to log debug information for debugging or tracing.
      *
      * @param clazz
      *            The class that is calling this log method.
@@ -96,23 +97,54 @@ public class JavaLogServiceImpl implements LogService
      *            empty and less than 256 chars
      */
     @Override
-    public final void logDetail(final Class<?> clazz, final String methodName,
+    public final void logDebug(final Class<?> clazz, final String methodName,
             final String message)
     {
-        Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+        Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail()
+                .validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
 
         final String fqcn = clazz.getName();
         final Logger logger = Logger.getLogger(fqcn);
         if (logger.isLoggable(Level.FINEST))
         {
             logger.logp(Level.FINEST, fqcn, methodName, message);
+        }
+    }
+    
+	/**
+	 * Call when you want to log configuration information for debugging or tracing.
+	 *
+	 * @param clazz
+	 *            The class that is calling this log method.
+	 * @param methodName
+	 *            The name of the class method that is calling this log method.
+	 * @param message
+	 *            The message to send to the log.
+	 */
+    @Override
+    public final void logConfiguration(final Class<?> clazz, final String methodName,
+            final String message)
+    {
+        Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail()
+                .validate();
+        Validate.defineString(methodName).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineString(message).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+
+        final String fqcn = clazz.getName();
+        final Logger logger = Logger.getLogger(fqcn);
+        if (logger.isLoggable(Level.CONFIG))
+        {
+            logger.logp(Level.CONFIG, fqcn, methodName, message);
         }
     }
 
@@ -134,13 +166,13 @@ public class JavaLogServiceImpl implements LogService
     {
 
         Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
 
         final String fqcn = clazz.getName();
         final Logger logger = Logger.getLogger(fqcn);
@@ -169,14 +201,14 @@ public class JavaLogServiceImpl implements LogService
             final String message, final Throwable thrown)
     {
         Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
-        Validate.defineObject(thrown).testNotNull().throwOnNotValidate()
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail()
                 .validate();
 
         final String fqcn = clazz.getName();
@@ -204,13 +236,13 @@ public class JavaLogServiceImpl implements LogService
             final String message)
     {
         Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
 
         final String fqcn = clazz.getName();
         final Logger logger = Logger.getLogger(fqcn);
@@ -235,10 +267,10 @@ public class JavaLogServiceImpl implements LogService
 //            final String methodName)
 //    {
 //        Validate.defineString(clazz.getName()).testNotNullEmpty()
-//                .throwOnNotValidate().validate();
+//                .throwValidationExceptionOnFail().validate();
 //        Validate.defineString(methodName).testNotNullEmpty()
 //                .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-//                .throwOnNotValidate().validate();
+//                .throwValidationExceptionOnFail().validate();
 //
 //        final String fqcn = clazz.getName();
 //        final Logger logger = Logger.getLogger(fqcn);
@@ -270,10 +302,10 @@ public class JavaLogServiceImpl implements LogService
 //    {
 //
 //        Validate.defineString(clazz.getName()).testNotNullEmpty()
-//                .throwOnNotValidate().validate();
+//                .throwValidationExceptionOnFail().validate();
 //        Validate.defineString(methodName).testNotNullEmpty()
 //                .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-//                .throwOnNotValidate().validate();
+//                .throwValidationExceptionOnFail().validate();
 //
 //        final String fqcn = clazz.getName();
 //        final Logger logger = Logger.getLogger(fqcn);
@@ -308,13 +340,13 @@ public class JavaLogServiceImpl implements LogService
     {
 
         Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
 
         final String fqcn = clazz.getName();
         final Logger logger = Logger.getLogger(fqcn);
@@ -344,14 +376,14 @@ public class JavaLogServiceImpl implements LogService
     {
 
         Validate.defineString(clazz.getName()).testNotNullEmpty()
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(methodName).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
+                .throwValidationExceptionOnFail().validate();
         Validate.defineString(message).testNotNullEmpty()
                 .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
-                .throwOnNotValidate().validate();
-        Validate.defineObject(thrown).testNotNull().throwOnNotValidate()
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail()
                 .validate();
 
         final String fqcn = clazz.getName();
@@ -360,6 +392,128 @@ public class JavaLogServiceImpl implements LogService
         {
             logger.logp(Level.WARNING, fqcn, methodName, message, thrown);
         }
+    }
+    
+    /**
+     * Call when you want to log a security message.
+     *
+     * @param clazz
+     *            The class that is calling this log method.
+     * @param methodName
+     *            The name of the class method that is calling this log method.
+     *            The length must not be null or empty and less than 64
+     * @param message
+     *            The message to send to the log. The length must not be null or
+     *            empty and less than 256 chars
+     */
+    @Override
+    public final void logSecurity(final Class<?> clazz, final String methodName,
+            final String message)
+    {
+
+        Validate.defineString(clazz.getName()).testNotNullEmpty()
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineString(methodName).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineString(message).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+
+        final String fqcn = clazz.getName();
+        final Logger logger = Logger.getLogger(fqcn);
+        if (logger.isLoggable(Level.WARNING))
+        {
+            logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message);
+        }
+    }
+
+    /**
+     * Call when you want to log a security message with a throwable details.
+     *
+     * @param clazz
+     *            The class that is calling this log method.
+     * @param methodName
+     *            The name of the class method that is calling this log method.
+     *            The length must not be null or empty and less than 64
+     * @param message
+     *            The message to send to the log. The length must not be null or
+     *            empty and less than 256 chars
+     * @param thrown
+     *            The throwable to log details about.
+     */
+    @Override
+    public final void logSecurity(final Class<?> clazz, final String methodName,
+            final String message, final Throwable thrown)
+    {
+
+        Validate.defineString(clazz.getName()).testNotNullEmpty()
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineString(methodName).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.METHOD_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineString(message).testNotNullEmpty()
+                .testMaxLength(JavaLogServiceImpl.MESSAGE_NAME_MAX_LENGTH)
+                .throwValidationExceptionOnFail().validate();
+        Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail()
+                .validate();
+
+        final String fqcn = clazz.getName();
+        final Logger logger = Logger.getLogger(fqcn);
+        if (logger.isLoggable(Level.WARNING))
+        {
+            logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message, thrown);
+        }
+    }
+    
+    
+    /**
+     * The SecurityLevel class defines a security logging level that
+     * can be used to control logging output by subclassing the existing Level class.
+     * The levels in descending order are:
+     * <ul>
+     * <li>SECURITY (highest value)
+     * <li>SEVERE 
+     * <li>WARNING
+     * <li>INFO
+     * <li>CONFIG
+     * <li>FINE
+     * <li>FINER
+     * <li>FINEST  (lowest value)
+     * </ul>
+	 * This level should blend into the existing logging system.
+     *
+     */
+    public static class SecurityLevel extends Level
+    {
+
+		/**
+		 * Serialization
+		 */
+		private static final long serialVersionUID = -3101561540429862423L;
+
+	    private static final String defaultBundle =
+	            "sun.util.logging.resources.logging";
+	    
+	    /**
+	     * SECURITY is a message level indicating a security failure.
+	     * <p>
+	     * In general SECURITY messages should describe events that are
+	     * of considerable importance and which will prevent normal
+	     * program execution.   They should be reasonably intelligible
+	     * to end users and to system administrators.  Security level events should always go to the log.
+	     * This level is initialized to <CODE>2000</CODE>.
+	     */
+	    public static final Level SECURITY = new SecurityLevel("SECURITY",(Level.SEVERE.intValue() + 1000), defaultBundle);
+		
+		protected SecurityLevel(String name, int value, String resourceBundleName) {
+			super(name, value, resourceBundleName);
+		}
+
+		protected SecurityLevel(String name, int value) {
+			super(name, value);
+		}
+		
     }
 
 }
