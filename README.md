@@ -25,6 +25,11 @@ Maven Dependency
   <artifactId>gab-logging</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 </dependency>
+<dependency>
+   <groupId>com.gabstudios</groupId>
+   <artifactId>gab-validate</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+</dependency>
 ```
 
 Build
