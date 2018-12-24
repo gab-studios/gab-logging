@@ -19,108 +19,98 @@
 
 package com.gabstudios.logging;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+public abstract class LogProvider {
+	/*
+	 * The fully qualified class name. Used as the property key to get the
+	 * LogProvider implementation.
+	 */
+	private static final String FQCN = "com.gabstudios.logging.LogProvider";
 
-public abstract class LogProvider
-{
-    /*
-     * The fully qualified class name.  Used as the property key to get the LogProvider implementation.
-     */
-    private static final String                   FQCN             = "com.gabstudios.logging.LogProvider";
-    
-    /*
-     * The default LogProvider implementation. 
-     */
-    private static final String                   DEFAULT_LOG_FQCN = "com.gabstudios.logging.impl.JavaLogProviderImpl";
-    
-    /*
-     * A cache that holds onto the different LogProvider implementation as they are used.
-     */
-    private static final Map<String, LogProvider> LOG_PROVIDER_MAP;
-    
-    static
-    {
-        LOG_PROVIDER_MAP = new HashMap<String, LogProvider>();
-    }
-    
-    /**
-     * Protected class.
-     */
-    protected LogProvider()
-    {
-        // void - do nothing.
-    }
-    
-    /**
-     * Gets the current log provider. A provider can be based on a type of
-     * service.
-     * 
-     * @return A <code>LogProvider</code> instance.
-     */
-    public static final LogProvider getProvider()
-    {
-        String logProviderFQCN = System.getProperty(FQCN);
-        if (logProviderFQCN == null || logProviderFQCN.length() == 0)
-        {
-            logProviderFQCN = DEFAULT_LOG_FQCN;
-        }
-        
-        LogProvider logProvider = LOG_PROVIDER_MAP.get(logProviderFQCN);
-        if (logProvider == null)
-        {
-            logProvider = loadLogProvider(logProviderFQCN);
-            LOG_PROVIDER_MAP.put(logProviderFQCN, logProvider);
-        }
-        
-        return (logProvider);
-    }
-    
-    /**
-     * Gets the Log service provided by the Log Provider.
-     * 
-     * @return A <code>LogService</code> instance.
-     */
-    public abstract LogService getService();
-    
-    /**
-     * Clears cached <code>LogProvider</code> implementions from the
-     * LogProvider.
-     */
-    public void clear()
-    {
-        LOG_PROVIDER_MAP.clear();
-    }
-    
-    /*
-     * Dynamically loads a LogProvider implementation.
-     */
-    protected final static LogProvider loadLogProvider(final String className)
-    {
-        assert (className != null) : "loadLogProvider() - the parameter 'className' should not be null or empty";
-        
-        try
-        {
-            final LogProvider logProvider = (LogProvider) Class.forName(
-                    className).newInstance();
-            return (logProvider);
-        }
-        catch (final IllegalAccessException e)
-        {
-            throw (new LogProviderSysException(
-                    "Illegal access to class name - " + className, e));
-        }
-        catch (final ClassNotFoundException e)
-        {
-            throw (new LogProviderSysException(
-                    "Unable to locate the class name - " + className, e));
-        }
-        catch (final InstantiationException e)
-        {
-            throw (new LogProviderSysException(
-                    "Unable to instantiate the class name - " + className, e));
-        }
-    }
-    
+	/*
+	 * The default LogProvider implementation.
+	 */
+	private static final String DEFAULT_LOG_FQCN = "com.gabstudios.logging.impl.JavaLogProviderImpl";
+
+	/*
+	 * A cache that holds onto the different LogProvider implementation as they are
+	 * used.
+	 */
+	private static final Map<String, LogProvider> LOG_PROVIDER_MAP;
+
+	static {
+		LOG_PROVIDER_MAP = new HashMap<String, LogProvider>();
+	}
+
+	/**
+	 * Protected class.
+	 */
+	protected LogProvider() {
+		// void - do nothing.
+	}
+
+	/**
+	 * Gets the current log provider. A provider can be based on a type of service.
+	 * 
+	 * @return A <code>LogProvider</code> instance.
+	 */
+	public static final LogProvider getProvider() {
+		String logProviderFQCN = System.getProperty(FQCN);
+		if (logProviderFQCN == null || logProviderFQCN.length() == 0) {
+			logProviderFQCN = DEFAULT_LOG_FQCN;
+		}
+
+		LogProvider logProvider = LOG_PROVIDER_MAP.get(logProviderFQCN);
+		if (logProvider == null) {
+			logProvider = loadLogProvider(logProviderFQCN);
+			LOG_PROVIDER_MAP.put(logProviderFQCN, logProvider);
+		}
+
+		return (logProvider);
+	}
+
+	/**
+	 * Gets the Log service provided by the Log Provider.
+	 * 
+	 * @return A <code>LogService</code> instance.
+	 */
+	public abstract LogService getService();
+
+	/**
+	 * Clears cached <code>LogProvider</code> implementions from the LogProvider.
+	 */
+	public void clear() {
+		LOG_PROVIDER_MAP.clear();
+	}
+
+	/*
+	 * Dynamically loads a LogProvider implementation.
+	 */
+	protected final static LogProvider loadLogProvider(final String className) {
+		assert (className != null) : "loadLogProvider() - the parameter 'className' should not be null or empty";
+
+		try {
+			final LogProvider logProvider = (LogProvider) Class.forName(className).getDeclaredConstructor()
+					.newInstance();
+			return (logProvider);
+		} catch (final IllegalAccessException e) {
+			throw (new LogProviderSysException("Illegal access to class name - " + className, e));
+		} catch (final ClassNotFoundException e) {
+			throw (new LogProviderSysException("Unable to locate the class name - " + className, e));
+		} catch (final InstantiationException e) {
+			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
+		} catch (final IllegalArgumentException e) {
+			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
+		} catch (final InvocationTargetException e) {
+			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
+		} catch (final NoSuchMethodException e) {
+			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
+		} catch (final SecurityException e) {
+			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
+		}
+	}
+
 }
