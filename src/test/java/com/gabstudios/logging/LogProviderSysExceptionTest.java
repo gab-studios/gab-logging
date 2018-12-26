@@ -31,11 +31,11 @@ public class LogProviderSysExceptionTest
 {
 
 	@Test
-	public void construation1Test()
+	public void constructor1Test()
 	{
 		try
 		{
-			final Exception e = new LogProviderSysException("construation1Test exception");
+			final Exception e = new LogProviderSysException("constructor1Test exception");
 			Assert.assertNotNull(e);
 		}
 		catch (final Exception e)
@@ -46,12 +46,12 @@ public class LogProviderSysExceptionTest
 	}
 
 	@Test
-	public void construation2Test()
+	public void constructor2Test()
 	{
 		try
 		{
 			final Throwable t = new Exception("Trigger Exception");
-			final Exception e = new LogProviderSysException("construation2Test exception", t);
+			final Exception e = new LogProviderSysException("constructor2Test exception", t);
 			Assert.assertNotNull(e);
 		}
 		catch (final Exception e)
@@ -61,11 +61,11 @@ public class LogProviderSysExceptionTest
 	}
 
 	@Test
-	public void construation3Test()
+	public void constructor3Test()
 	{
 		try
 		{
-			final Throwable t = new Exception("Trigger Exception - construation3Test");
+			final Throwable t = new Exception("Trigger Exception - constructor3Test");
 			final Exception e = new LogProviderSysException(t);
 			Assert.assertNotNull(e);
 		}
