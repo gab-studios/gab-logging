@@ -30,57 +30,55 @@ import com.gabstudios.logging.impl.JavaLogServiceImpl;
  * @author Gregory Brown (sysdevone)
  *
  */
-public class LogProviderTest
+public class LogProviderNegativeTest
 {
 
-	@Test
-	public void clear()
-	{
+//	@Test - checks system property for setting.  If not seeting then uses default.  Not testable.
+//	public void getNullProvider()
+//	{
+//		try
+//		{
+//			System.setProperty("com.gabstudios.logging.LogProvider", null);
+//			final LogProvider logProvider = LogProvider.getProvider();
+//            Assert.assertTrue(true);
+//		}
+//		catch (final Exception e)
+//		{
+//            Assert.assertTrue(true);
+//		}
+//
+//	}
 
+//	@Test - checks system property for setting.  If not seeting then uses default.  Not testable.
+//	public void getEmptyProvider()
+//	{
+//		try
+//		{
+//			System.setProperty("com.gabstudios.logging.LogProvider", "");
+//			final LogProvider logProvider = LogProvider.getProvider();
+//
+//            Assert.fail();
+//		}
+//		catch (final Exception e)
+//		{
+//            Assert.assertTrue(true);
+//		}
+//
+//	}
+	
+	@Test
+	public void getWrongProvider()
+	{
 		try
 		{
-			LogProvider.getProvider().clear();
-
-			Assert.assertTrue(true);
-		}
-		catch (final Exception e)
-		{
-			Assert.fail(e.toString());
-		}
-
-	}
-
-	@Test
-	public void getProvider()
-	{
-		try
-		{
+			System.setProperty("com.gabstudios.logging.LogProvider", "com.gabstudios.logging.impl.JavaLogProviderImpl2");
 			final LogProvider logProvider = LogProvider.getProvider();
 
-			Assert.assertTrue(logProvider != null);
-			Assert.assertTrue(logProvider instanceof JavaLogProviderImpl);
+            Assert.fail();
 		}
 		catch (final Exception e)
 		{
-			Assert.fail(e.toString());
-		}
-
-	}
-
-	@Test
-	public void getService()
-	{
-		try
-		{
-			final LogProvider logProvider = LogProvider.getProvider();
-			final LogService logService = logProvider.getService();
-
-			Assert.assertTrue(logService != null);
-			Assert.assertTrue(logService instanceof JavaLogServiceImpl);
-		}
-		catch (final Exception e)
-		{
-			Assert.fail(e.toString());
+            Assert.assertTrue(true);
 		}
 
 	}

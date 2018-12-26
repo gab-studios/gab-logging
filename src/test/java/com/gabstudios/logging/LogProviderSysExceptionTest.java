@@ -21,27 +21,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gabstudios.logging.impl.JavaLogProviderImpl;
-import com.gabstudios.logging.impl.JavaLogServiceImpl;
-
 /**
  *
  *
  * @author Gregory Brown (sysdevone)
  *
  */
-public class LogProviderTest
+public class LogProviderSysExceptionTest
 {
 
 	@Test
-	public void clear()
+	public void constructor1Test()
 	{
-
 		try
 		{
-			LogProvider.getProvider().clear();
-
-			Assert.assertTrue(true);
+			final Exception e = new LogProviderSysException("constructor1Test exception");
+			Assert.assertNotNull(e);
 		}
 		catch (final Exception e)
 		{
@@ -51,50 +46,45 @@ public class LogProviderTest
 	}
 
 	@Test
-	public void getProvider()
+	public void constructor2Test()
 	{
 		try
 		{
-			final LogProvider logProvider = LogProvider.getProvider();
-
-			Assert.assertTrue(logProvider != null);
-			Assert.assertTrue(logProvider instanceof JavaLogProviderImpl);
+			final Throwable t = new Exception("Trigger Exception");
+			final Exception e = new LogProviderSysException("constructor2Test exception", t);
+			Assert.assertNotNull(e);
 		}
 		catch (final Exception e)
 		{
 			Assert.fail(e.toString());
 		}
-
 	}
 
 	@Test
-	public void getService()
+	public void constructor3Test()
 	{
 		try
 		{
-			final LogProvider logProvider = LogProvider.getProvider();
-			final LogService logService = logProvider.getService();
-
-			Assert.assertTrue(logService != null);
-			Assert.assertTrue(logService instanceof JavaLogServiceImpl);
+			final Throwable t = new Exception("Trigger Exception - constructor3Test");
+			final Exception e = new LogProviderSysException(t);
+			Assert.assertNotNull(e);
 		}
 		catch (final Exception e)
 		{
 			Assert.fail(e.toString());
 		}
-
 	}
 
 	@Before
 	public void setUp()
 	{
-		// void - does nothing.
+		// void
 	}
 
 	@After
 	public void tearDown()
 	{
-		// void - does nothing
+		// void
 	}
 
 }
