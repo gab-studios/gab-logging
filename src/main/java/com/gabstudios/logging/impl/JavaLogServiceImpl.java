@@ -81,46 +81,6 @@ public class JavaLogServiceImpl implements LogService
 
 	private static final int	MESSAGE_NAME_MAX_LENGTH	= 256;
 
-	// private static String createJSONLogMethodMessage(final String fqcn,
-	// final String methodName, final Long timeInMillis,
-	// final String messageString)
-	// {
-	//
-	// /*
-	// * validity check.
-	// */
-	// assert (fqcn != null) : "The parameter 'fqcn' is NULL.";
-	// assert (fqcn.length() > 0) : "The parameter 'fqcn' is empty.";
-	// assert (methodName != null) : "The parameter 'methodName' is NULL.";
-	// assert (methodName.length() > 0) : "The parameter 'methodName' is empty.";
-	// assert (timeInMillis > -1L) : "The parameter 'timeInMillis' less than zero.";
-	// assert (messageString != null) : "The parameter 'messageString' is NULL.";
-	// assert (messageString.length() > 0) : "The parameter 'messageString' is
-	// empty.";
-	//
-	// /*
-	// * Create the json message.
-	// */
-	// final StringBuilder message = new StringBuilder();
-	// message.append("{");
-	// message.append("'fqcn':'" + fqcn + "',");
-	// message.append("'method':'" + methodName + "',");
-	// message.append("'threadId':'" + Thread.currentThread().getId() + "',");
-	// try
-	// {
-	// message.append("'ipAddress':'" + InetAddress.getLocalHost() + "',");
-	// }
-	// catch (final UnknownHostException e)
-	// {
-	// message.append("'ipAddress':'unknown',");
-	// }
-	// message.append("'message':'" + messageString + "',");
-	// message.append("'timeInMillis':" + timeInMillis);
-	//
-	// message.append("}");
-	// return (message.toString());
-	// }
-
 	private static final int	METHOD_NAME_MAX_LENGTH	= 64;
 
 	/**
