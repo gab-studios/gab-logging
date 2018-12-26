@@ -67,6 +67,24 @@ public class LogServiceTest
     }
     
     @Test
+    public void logConfiguration()
+    {
+        
+        try
+        {
+            this._logService.logConfiguration(LogProviderTest.class, "logConfiguration",
+                    "testing logConfiguration");
+            
+            Assert.assertTrue(true);
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
+        }
+        
+    }
+    
+    @Test
     public void logMessage()
     {
         
@@ -103,14 +121,14 @@ public class LogServiceTest
     }
     
     @Test
-    public void logWarning2()
+    public void logWarningWithException()
     {
         
         try
         {
-            this._logService.logWarning(LogProviderTest.class, "logWarning2",
+            this._logService.logWarning(LogProviderTest.class, "logWarningWithException",
                     "testing logWarning with Throwable", new Exception(
-                            "logWarning2 Exception"));
+                            "logWarningWithException Exception"));
             
             Assert.assertTrue(true);
         }
@@ -140,14 +158,14 @@ public class LogServiceTest
     }
     
     @Test
-    public void logFailure2()
+    public void logFailureWithException()
     {
         
         try
         {
-            this._logService.logFailure(LogProviderTest.class, "logFailure2",
-                    "testing logFailure2 with Throwable", new Exception(
-                            "logFailure2 Exception"));
+            this._logService.logFailure(LogProviderTest.class, "logFailureWithException",
+                    "testing logFailure with Throwable", new Exception(
+                            "logFailureWithException Exception"));
             
             Assert.assertTrue(true);
         }
@@ -177,14 +195,14 @@ public class LogServiceTest
     }
     
     @Test
-    public void logSecurity2()
+    public void logSecurityWithException()
     {
         
         try
         {
-            this._logService.logSecurity(LogProviderTest.class, "logSecurity2",
+            this._logService.logSecurity(LogProviderTest.class, "logSecurityWithException",
                     "testing logSecurity with Throwable", new Exception(
-                            "logSecurity2 Exception"));
+                            "logSecurityWithException Exception"));
             
             Assert.assertTrue(true);
         }
@@ -195,40 +213,5 @@ public class LogServiceTest
         
     }
     
-//    @Test
-//    public void logMethodBegin()
-//    {
-//        
-//        try
-//        {
-//            this._logService.logMethodBegin(LogProviderTest.class,
-//                    "logMethodBegin");
-//            
-//            Assert.assertTrue(true);
-//        }
-//        catch (Exception e)
-//        {
-//            Assert.fail(e.toString());
-//        }
-//        
-//    }
-//    
-//    @Test
-//    public void logMethodEnd()
-//    {
-//        
-//        try
-//        {
-//            this._logService
-//                    .logMethodEnd(LogProviderTest.class, "logMethodEnd");
-//            
-//            Assert.assertTrue(true);
-//        }
-//        catch (Exception e)
-//        {
-//            Assert.fail(e.toString());
-//        }
-//        
-//    }
     
 }
