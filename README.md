@@ -29,7 +29,7 @@ Check the project [wiki].
 
 Copyright
 -------
-[Copyright 2015 Gregory Brown]
+[Copyright 2018 Gregory Brown]
 
 
 License
@@ -42,7 +42,7 @@ Feedback
 Comments and feedback are greatly appreciated!!!
 
 
-[Copyright 2015 Gregory Brown]: https://github.com/gab-studios/gab-logging/tree/master/COPYRIGHT.txt
+[Copyright 2018 Gregory Brown]: https://github.com/gab-studios/gab-logging/tree/master/COPYRIGHT.txt
 [Apache v2.0 License]: https://github.com/gab-studios/gab-logging/tree/master/LICENSE.txt
 [wiki]: https://github.com/gab-studios/gab-logging/wiki
 [examples]: https://github.com/gab-studios/gab-logging/wiki/Examples
