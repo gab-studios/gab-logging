@@ -43,7 +43,9 @@ public abstract class LogProvider
 	}
 
 	/**
-	 * Gets the current log provider. A provider can be based on a type of service.
+	 * Gets the current log provider. A provider can be based on a type of service. Checks the System properties using
+	 * key - "com.gabstudios.logging.LogProvider" If not empty or null, then will use class
+	 * "com.gabstudios.logging.impl.JavaLogProviderImpl" implementation.
 	 *
 	 * @return A <code>LogProvider</code> instance.
 	 */
