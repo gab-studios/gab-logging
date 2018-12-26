@@ -92,10 +92,6 @@ public abstract class LogProvider
 		{
 			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
 		}
-		catch (final IllegalArgumentException e)
-		{
-			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
-		}
 		catch (final InvocationTargetException e)
 		{
 			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
@@ -104,10 +100,7 @@ public abstract class LogProvider
 		{
 			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
 		}
-		catch (final SecurityException e)
-		{
-			throw (new LogProviderSysException("Unable to instantiate the class name - " + className, e));
-		}
+
 	}
 
 	/**
