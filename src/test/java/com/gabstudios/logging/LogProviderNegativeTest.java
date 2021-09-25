@@ -21,9 +21,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gabstudios.logging.impl.JavaLogProviderImpl;
-import com.gabstudios.logging.impl.JavaLogServiceImpl;
-
 /**
  *
  *
@@ -33,38 +30,21 @@ import com.gabstudios.logging.impl.JavaLogServiceImpl;
 public class LogProviderNegativeTest
 {
 
-//	@Test - checks system property for setting.  If not seeting then uses default.  Not testable.
-//	public void getNullProvider()
-//	{
-//		try
-//		{
-//			System.setProperty("com.gabstudios.logging.LogProvider", null);
-//			final LogProvider logProvider = LogProvider.getProvider();
-//            Assert.assertTrue(true);
-//		}
-//		catch (final Exception e)
-//		{
-//            Assert.assertTrue(true);
-//		}
-//
-//	}
+	@Test //- checks system property for setting.  If not seeting then uses default.  Not testable.
+	public void getNullProvider()
+	{
+		try
+		{
+			System.setProperty("com.gabstudios.logging.LogProvider", null);
+			final LogProvider logProvider = LogProvider.getProvider();
+           Assert.assertTrue(true);
+		}
+		catch (final Exception e)
+		{
+           Assert.assertTrue(true);
+		}
 
-//	@Test - checks system property for setting.  If not seeting then uses default.  Not testable.
-//	public void getEmptyProvider()
-//	{
-//		try
-//		{
-//			System.setProperty("com.gabstudios.logging.LogProvider", "");
-//			final LogProvider logProvider = LogProvider.getProvider();
-//
-//            Assert.fail();
-//		}
-//		catch (final Exception e)
-//		{
-//            Assert.assertTrue(true);
-//		}
-//
-//	}
+	}
 	
 	@Test
 	public void getWrongProvider()
