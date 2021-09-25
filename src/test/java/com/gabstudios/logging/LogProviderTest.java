@@ -85,6 +85,24 @@ public class LogProviderTest
 
 	}
 
+	@Test //- checks system property for setting.  If not seeting then uses default.  Not testable.
+	public void getEmptyProvider()
+	{
+		try
+		{
+			System.setProperty("com.gabstudios.logging.LogProvider", "");
+			final LogProvider logProvider = LogProvider.getProvider();
+
+			Assert.assertTrue(logProvider != null);
+			Assert.assertTrue(logProvider instanceof JavaLogProviderImpl);
+		}
+		catch (final Exception e)
+		{
+			Assert.fail(e.toString());
+		}
+
+	}
+
 	@Before
 	public void setUp()
 	{
