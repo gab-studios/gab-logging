@@ -22,7 +22,6 @@ public class LogProvider
 	// TODO
 	// add meta data?
 	// add statistics?
-	// add sanitizer callback
 	// allow different services to be loaded based on system properties
 
 
