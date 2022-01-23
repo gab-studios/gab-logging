@@ -82,12 +82,36 @@ public class LogService
 
 	private static final int	METHOD_NAME_MAX_LENGTH	= 64;
 
+	private LogSanitizer _sanitizer;
+
+	{
+		// create default does nothing sanitizer.  Just provides fall through.
+		this._sanitizer = new LogSanitizer() 
+		{
+			public String sanitize( String untrustedData )
+			{
+				return( untrustedData );
+			}
+		};
+	}
+
+
 	/**
 	 * Protected class. Should only be created by LogProvider.
 	 */
 	protected LogService()
 	{
 		// void - protectes class scope.
+	}
+
+	public void setSanitizer( LogSanitizer sanitizer )
+	{
+		this._sanitizer = sanitizer;
+	}
+
+	private LogSanitizer getSanitizer()
+	{
+		return(this._sanitizer);
 	}
 
 	/**
@@ -112,7 +136,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.CONFIG))
 		{
-			logger.logp(Level.CONFIG, fqcn, methodName, message);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.CONFIG, fqcn, sMethodName, sMessage);
 		}
 	}
 
@@ -139,7 +167,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.FINEST))
 		{
-			logger.logp(Level.FINEST, fqcn, methodName, message);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.FINEST, fqcn, sMethodName, sMessage);
 		}
 	}
 
@@ -167,7 +199,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.SEVERE))
 		{
-			logger.logp(Level.SEVERE, fqcn, methodName, message);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.SEVERE, fqcn, sMethodName, sMessage);
 		}
 	}
 
@@ -198,7 +234,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.SEVERE))
 		{
-			logger.logp(Level.SEVERE, fqcn, methodName, message, thrown);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.SEVERE, fqcn, sMethodName, sMessage, thrown);
 		}
 	}
 
@@ -225,7 +265,12 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.INFO))
 		{
-			logger.logp(Level.INFO, fqcn, methodName, message);
+
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.INFO, fqcn, sMethodName, sMessage);
 		}
 	}
 
@@ -253,7 +298,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.WARNING))
 		{
-			logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(SecurityLevel.SECURITY, fqcn, sMethodName, sMessage);
 		}
 	}
 
@@ -285,7 +334,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.WARNING))
 		{
-			logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message, thrown);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(SecurityLevel.SECURITY, fqcn, sMethodName, sMessage, thrown);
 		}
 	}
 
@@ -313,7 +366,12 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.WARNING))
 		{
-			logger.logp(Level.WARNING, fqcn, methodName, message);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.WARNING, fqcn, sMethodName, sMessage);
+
 		}
 	}
 
@@ -345,7 +403,11 @@ public class LogService
 		final Logger logger = Logger.getLogger(fqcn);
 		if (logger.isLoggable(Level.WARNING))
 		{
-			logger.logp(Level.WARNING, fqcn, methodName, message, thrown);
+			final LogSanitizer sanitizer = getSanitizer();
+			final String sMethodName = sanitizer.sanitize(methodName);
+			final String sMessage = sanitizer.sanitize(message);
+
+			logger.logp(Level.WARNING, fqcn, sMethodName, sMessage, thrown);
 		}
 	}
 
