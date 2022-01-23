@@ -190,15 +190,12 @@ public class LogServiceTest
 	@Before
 	public void setUp()
 	{
-		System.setProperty("com.gabstudios.logging.LogProvider", ""); //reset
 		this._logService = LogProvider.getProvider().getService();
 	}
 
 	@After
 	public void tearDown()
 	{
-		LogProvider.getProvider().clear();
-		this._logService = null;
 	}
 
 }

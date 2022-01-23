@@ -21,9 +21,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gabstudios.logging.impl.JavaLogProviderImpl;
-import com.gabstudios.logging.impl.JavaLogServiceImpl;
-
 /**
  *
  *
@@ -33,22 +30,6 @@ import com.gabstudios.logging.impl.JavaLogServiceImpl;
 public class LogProviderTest
 {
 
-	@Test
-	public void clear()
-	{
-
-		try
-		{
-			LogProvider.getProvider().clear();
-
-			Assert.assertTrue(true);
-		}
-		catch (final Exception e)
-		{
-			Assert.fail(e.toString());
-		}
-
-	}
 
 	@Test
 	public void getProvider()
@@ -58,7 +39,6 @@ public class LogProviderTest
 			final LogProvider logProvider = LogProvider.getProvider();
 
 			Assert.assertTrue(logProvider != null);
-			Assert.assertTrue(logProvider instanceof JavaLogProviderImpl);
 		}
 		catch (final Exception e)
 		{
@@ -76,25 +56,6 @@ public class LogProviderTest
 			final LogService logService = logProvider.getService();
 
 			Assert.assertTrue(logService != null);
-			Assert.assertTrue(logService instanceof JavaLogServiceImpl);
-		}
-		catch (final Exception e)
-		{
-			Assert.fail(e.toString());
-		}
-
-	}
-
-	@Test //- checks system property for setting.  If not seeting then uses default.  Not testable.
-	public void getEmptyProvider()
-	{
-		try
-		{
-			System.setProperty("com.gabstudios.logging.LogProvider", "");
-			final LogProvider logProvider = LogProvider.getProvider();
-
-			Assert.assertTrue(logProvider != null);
-			Assert.assertTrue(logProvider instanceof JavaLogProviderImpl);
 		}
 		catch (final Exception e)
 		{

@@ -16,23 +16,79 @@
 
 package com.gabstudios.logging;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.gabstudios.validate.Validate;
+
 /**
  * A service to handle logging. This uses the java logging.
  *
- * The log methods in descending order of log level are:
- * <ul>
- * <li>logSecurity (highest value)
- * <li>logFailure
- * <li>logWarning
- * <li>logMessage
- * <li>logConfiguration
- * <li>logDetail (lowest value)
- * </ul>
  *
  * @author Gregory Brown (sysdevone)
  */
-public abstract interface LogService
+public class LogService
 {
+	/**
+	 * The SecurityLevel class defines a security logging level that can be used to control logging output by
+	 * subclassing the existing Level class. The levels in descending order are:
+	 * <ul>
+	 * <li>SECURITY (highest value)
+	 * <li>SEVERE
+	 * <li>WARNING
+	 * <li>INFO
+	 * <li>CONFIG
+	 * <li>FINE
+	 * <li>FINER
+	 * <li>FINEST (lowest value)
+	 * </ul>
+	 * This level should blend into the existing logging system.
+	 *
+	 */
+	public static class SecurityLevel extends Level
+	{
+
+		/**
+		 * Serialization
+		 */
+		private static final long	serialVersionUID	= -3101561540429862423L;
+
+		private static final String	defaultBundle		= "sun.util.logging.resources.logging";
+
+		/**
+		 * SECURITY is a message level indicating a security failure.
+		 * <p>
+		 * In general SECURITY messages should describe events that are of considerable importance and which will
+		 * prevent normal program execution. They should be reasonably intelligible to end users and to system
+		 * administrators. Security level events should always go to the log. This level is initialized to
+		 * <CODE>2000</CODE>.
+		 */
+		public static final Level	SECURITY			= new SecurityLevel("SECURITY",
+		        (Level.SEVERE.intValue() + 1000), SecurityLevel.defaultBundle);
+
+		protected SecurityLevel(final String name, final int value)
+		{
+			super(name, value);
+		}
+
+		protected SecurityLevel(final String name, final int value, final String resourceBundleName)
+		{
+			super(name, value, resourceBundleName);
+		}
+
+	}
+
+	private static final int	MESSAGE_NAME_MAX_LENGTH	= 256;
+
+	private static final int	METHOD_NAME_MAX_LENGTH	= 64;
+
+	/**
+	 * Protected class. Should only be created by LogProvider.
+	 */
+	protected LogService()
+	{
+		// void - protectes class scope.
+	}
 
 	/**
 	 * Call when you want to log configuration information for debugging or tracing.
@@ -44,7 +100,21 @@ public abstract interface LogService
 	 * @param message
 	 *            The message to send to the log.
 	 */
-	public abstract void logConfiguration(final Class<?> clazz, final String methodName, final String message);
+	public final void logConfiguration(final Class<?> clazz, final String methodName, final String message)
+	{
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.CONFIG))
+		{
+			logger.logp(Level.CONFIG, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log debug information for debugging or tracing.
@@ -52,11 +122,26 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 */
-	public abstract void logDebug(final Class<?> clazz, final String methodName, final String message);
+	public final void logDebug(final Class<?> clazz, final String methodName, final String message)
+	{
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.FINEST))
+		{
+			logger.logp(Level.FINEST, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log a failure message.
@@ -64,11 +149,27 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 */
-	public abstract void logFailure(final Class<?> clazz, final String methodName, final String message);
+	public final void logFailure(final Class<?> clazz, final String methodName, final String message)
+	{
+
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.SEVERE))
+		{
+			logger.logp(Level.SEVERE, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log a failure with throwable details.
@@ -76,14 +177,30 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 * @param thrown
 	 *            The throwable to log details about.
 	 */
-	public abstract void logFailure(final Class<?> clazz, final String methodName, final String message,
-	        final Throwable thrown);
+	public final void logFailure(final Class<?> clazz, final String methodName, final String message,
+	        final Throwable thrown)
+	{
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.SEVERE))
+		{
+			logger.logp(Level.SEVERE, fqcn, methodName, message, thrown);
+		}
+	}
 
 	/**
 	 * Call when you want to log standard messages.
@@ -91,11 +208,26 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 */
-	public abstract void logMessage(final Class<?> clazz, final String methodName, final String message);
+	public final void logMessage(final Class<?> clazz, final String methodName, final String message)
+	{
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.INFO))
+		{
+			logger.logp(Level.INFO, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log a security message.
@@ -103,11 +235,27 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 */
-	public abstract void logSecurity(final Class<?> clazz, final String methodName, final String message);
+	public final void logSecurity(final Class<?> clazz, final String methodName, final String message)
+	{
+
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.WARNING))
+		{
+			logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log a security message with a throwable details.
@@ -115,14 +263,31 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 * @param thrown
 	 *            The throwable to log details about.
 	 */
-	public abstract void logSecurity(final Class<?> clazz, final String methodName, final String message,
-	        final Throwable thrown);
+	public final void logSecurity(final Class<?> clazz, final String methodName, final String message,
+	        final Throwable thrown)
+	{
+
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.WARNING))
+		{
+			logger.logp(SecurityLevel.SECURITY, fqcn, methodName, message, thrown);
+		}
+	}
 
 	/**
 	 * Call when you want to log a warning message.
@@ -130,11 +295,27 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 */
-	public abstract void logWarning(final Class<?> clazz, final String methodName, final String message);
+	public final void logWarning(final Class<?> clazz, final String methodName, final String message)
+	{
+
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.WARNING))
+		{
+			logger.logp(Level.WARNING, fqcn, methodName, message);
+		}
+	}
 
 	/**
 	 * Call when you want to log a warning message with a throwable details.
@@ -142,12 +323,30 @@ public abstract interface LogService
 	 * @param clazz
 	 *            The class that is calling this log method.
 	 * @param methodName
-	 *            The name of the class method that is calling this log method.
+	 *            The name of the class method that is calling this log method. The length must not be null or empty and
+	 *            less than 64
 	 * @param message
-	 *            The message to send to the log.
+	 *            The message to send to the log. The length must not be null or empty and less than 256 chars
 	 * @param thrown
 	 *            The throwable to log details about.
 	 */
-	public abstract void logWarning(final Class<?> clazz, final String methodName, final String message,
-	        final Throwable thrown);
+	public final void logWarning(final Class<?> clazz, final String methodName, final String message,
+	        final Throwable thrown)
+	{
+
+		Validate.defineString(clazz.getName()).testNotNullEmpty().throwValidationExceptionOnFail().validate();
+		Validate.defineString(methodName).testNotNullEmpty().testMaxLength(LogService.METHOD_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineString(message).testNotNullEmpty().testMaxLength(LogService.MESSAGE_NAME_MAX_LENGTH)
+		        .throwValidationExceptionOnFail().validate();
+		Validate.defineObject(thrown).testNotNull().throwValidationExceptionOnFail().validate();
+
+		final String fqcn = clazz.getName();
+		final Logger logger = Logger.getLogger(fqcn);
+		if (logger.isLoggable(Level.WARNING))
+		{
+			logger.logp(Level.WARNING, fqcn, methodName, message, thrown);
+		}
+	}
+
 }
